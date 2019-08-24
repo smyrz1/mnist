@@ -17,11 +17,11 @@ available_type = set(['png', 'jpg', 'jpeg'])
 
 
 def init():
-    file = open('m_lenet.json', 'r')
+    file = open('model_mnist.json', 'r')
     mnist_model = file.read()
     file.close()
     loaded_model = model_from_json(mnist_model)
-    loaded_model.load_weights("m_weights.h5")
+    loaded_model.load_weights("model_mnist.h5")
     loaded_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
     img = tf.get_default_graph()
 
@@ -34,19 +34,30 @@ model, graph = init()
 
 @mnist_web.route('/')
 def index():
-
+    """
+    show html file.
+    :return:
+    """
     return render_template("index.html")
 
 
 def convert_img(img_data):
-
+    """
+    decoding the image from base64 into raw representation
+    :param img_data:
+    :return: None
+    """
     with open('digit.png', 'wb') as output:
         output.write(base64.b64decode(re.search(b'base64,(.*)', img_data).group(1)))
 
 
 @mnist_web.route('/predict/', methods=['GET', 'POST'])
 def predict():
-
+    """
+    whenever this function is called, we're going to convert the image we draw
+    into the raw data format of the image.
+    :return: string
+    """
     img_data = request.get_data()
     convert_img(img_data)
     img = cv2.imread('digit.png', 0)
