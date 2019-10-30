@@ -4,7 +4,7 @@ gevent
 gunicorn
 keras
 numpy
-Pillow==5.4.1
+Pillow==6.2.0
 opencv-python
 matplotlib==3.0.3
 imageio
