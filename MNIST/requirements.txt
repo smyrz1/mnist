@@ -8,6 +8,6 @@ Pillow==5.4.1
 opencv-python
 matplotlib==3.0.3
 imageio
-tensorflow==1.14.0
+tensorflow==2.6.4
 future
 cassandra-driver
